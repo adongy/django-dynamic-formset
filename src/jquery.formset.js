@@ -207,7 +207,7 @@
             if (!showAddButton()) addButtonRow.hide();
             addButton.click(function() {
                 var formCount = parseInt(totalForms.val()),
-                    row = options.formTemplate.clone(true).removeClass('formset-custom-template');
+                    row = options.formTemplate.clone(options.cloneWithDataAndEvents).removeClass('formset-custom-template'),
                 applyExtraClasses(row, formCount);
                 if (options.formInsert) {
                     options.formInsert($$, addButtonRow, row);
@@ -245,6 +245,7 @@
         formCssClass: 'dynamic-form',    // CSS class applied to each form in a formset
         extraClasses: [],                // Additional CSS classes, which will be applied to each form in turn
         keepFieldValues: '',             // jQuery selector for fields whose values should be kept when the form is cloned
+        cloneWithDataAndEvents: false,   // A Boolean indicating whether event handlers should be copied along with the elements. As of jQuery 1.4, element data will be copied as well.
         added: null,                     // Function called each time a new form is added
         removed: null,                    // Function called each time a form is deleted
         getDeleteLinkContainer:null      // function to get the container where the delete link should be added
