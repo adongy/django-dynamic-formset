@@ -148,7 +148,7 @@
                     if (elem.is('input:checkbox') || elem.is('input:radio')) {
                         elem.attr('checked', false);
                     } else {
-                        elem.val('');
+                        elem.removeAttr('value');
                     }
                 });
             }
