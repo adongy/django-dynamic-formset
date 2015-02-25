@@ -137,7 +137,7 @@
                 insertDeleteLink(template);
             } else {
                 // Otherwise, use the last form in the formset; this works much better if you've got
-                // extra (>= 1) forms (thnaks to justhamade for pointing this out):
+                // extra (>= 1) forms (thanks to justhamade for pointing this out):
                 template = $('.' + options.formCssClass + ':last').clone().removeAttr('id');
                 template.find('input:hidden[id $= "-DELETE"]').remove();
                 // Clear all cloned fields, except those the user wants to keep (thanks to brunogola for the suggestion):
