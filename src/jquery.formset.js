@@ -17,6 +17,7 @@
             totalForms = $('#id_' + options.prefix + '-TOTAL_FORMS'),
             maxForms = $('#id_' + options.prefix + '-MAX_NUM_FORMS'),
             childElementSelector = 'input,select,textarea,label,div',
+            deleteRegex = new RegExp('id_' + options.prefix + '-\\d+-DELETE'),
             $$ = $(this),
             addButtonRow,
 
@@ -41,7 +42,7 @@
 
             showAddButton = function() {
                 var forms = $$.not('.formset-custom-template'),
-                    isInline = (forms.find('input:hidden[id $= "-DELETE"]').length > 0);
+                    isInline = (forms.find('input:hidden').filter(function() {return this.id.match(deleteRegex)}).length > 0);
                 return maxForms.length == 0 ||   // For Django versions pre 1.2
                     maxForms.val() == '' ||
                     (maxForms.val() - totalForms.val() > 0) ||
@@ -76,7 +77,7 @@
                 }
                 var delButton = row.find('a.' + delCssSelector).click(function() {
                     var row = $(this).parents('.' + options.formCssClass),
-                        del = row.find('input:hidden[id $= "-DELETE"]'),
+                        del = row.find('input:hidden').filter(function() {return this.id.match(deleteRegex)}),
                         forms;
                     if (del.length) {
                         // We're dealing with an inline formset.
@@ -116,7 +117,7 @@
 
         $$.each(function(i) {
             var row = $(this),
-                del = row.find('input:checkbox[id $= "-DELETE"]');
+                del = row.find('input:checkbox').filter(function() {return this.id.match(deleteRegex)});
             if (del.length) {
                 // If you specify "can_delete = True" when creating an inline formset,
                 // Django adds a checkbox to each form in the formset.
@@ -156,7 +157,7 @@
                 // Otherwise, use the last form in the formset; this works much better if you've got
                 // extra (>= 1) forms (thanks to justhamade for pointing this out):
                 template = $('.' + options.formCssClass + ':last').clone().removeAttr('id');
-                template.find('input:hidden[id $= "-DELETE"]').remove();
+                template.find('input:hidden').filter(function() {return this.id.match(deleteRegex)}).remove();
                 // Clear all cloned fields, except those the user wants to keep (thanks to brunogola for the suggestion):
                 template.find(childElementSelector).not(options.keepFieldValues).each(function() {
                     var elem = $(this);
