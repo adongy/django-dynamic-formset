@@ -74,7 +74,7 @@
 
             insertDeleteLink = function(row) {
                 var delCssSelector = options.deleteCssClass.trim().replace(/\s+/g, '.');
-                appendDeleteLink(row, options.addCssClass);
+                appendDeleteLink(row, options.deleteCssClass);
                 // Listen on the parent instead of listening to each link
                 $$.parent().on('click', '.' + delCssSelector, function(e) {
                     e.preventDefault();
