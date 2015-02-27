@@ -50,31 +50,31 @@
                 ;
             },
 
-            getDeleteLinkContainer = function (row){
-                if (opts['getDeleteLinkContainer'] == null){
-                    return row.children(':last')
+            appendDeleteLink = function (row){
+                if (options.appendDeleteLink == null){
+                    var deleteElement = $(document.createElement('a')).addClass(options.deleteCssClass).attr('href', 'javascript:void(0)').text(options.deleteText);
+                    if (row.is('TR')) {
+                        // If the forms are laid out in table rows, insert
+                        // the remove button into the last table cell:
+                        row.children(':last').append(deleteElement);
+                    } else if (row.is('UL') || row.is('OL')) {
+                        // If they're laid out as an ordered/unordered list,
+                        // insert an <li> after the last list item:
+                        row.append($(document.createElement('li')).append(deleteElement));
+                    } else {
+                        // Otherwise, just insert the remove button as the
+                        // last child element of the form's container:
+                        row.append(deleteElement);
+                    }
                 } else{
-                    return opts['getDeleteLinkContainer'](row);
+                    return options.appendDeleteLink(row);
                 }
 
             },
 
             insertDeleteLink = function(row) {
                 var delCssSelector = options.deleteCssClass.trim().replace(/\s+/g, '.');
-                var deleteElement = $(document.createElement('a')).addClass(options.deleteCssClass).attr('href', 'javascript:void(0)').text(options.deleteText);
-                if (row.is('TR')) {
-                    // If the forms are laid out in table rows, insert
-                    // the remove button -by default- into the last table cell:
-                    getDeleteLinkContainer(row).append(deleteElement);
-                } else if (row.is('UL') || row.is('OL')) {
-                    // If they're laid out as an ordered/unordered list,
-                    // insert an <li> after the last list item:
-                    row.append($(document.createElement('li')).append(deleteElement));
-                } else {
-                    // Otherwise, just insert the remove button as the
-                    // last child element of the form's container:
-                    row.append($(document.createElement('li')).append(deleteElement));
-                }
+                appendDeleteLink(row);
                 var delButton = row.find('a.' + delCssSelector).click(function() {
                     var row = $(this).parents('.' + options.formCssClass),
                         del = row.find('input:hidden').filter(function() {return this.id.match(deleteRegex)}),
@@ -248,6 +248,6 @@
         cloneWithDataAndEvents: false,   // A Boolean indicating whether event handlers should be copied along with the elements. As of jQuery 1.4, element data will be copied as well.
         added: null,                     // Function called each time a new form is added
         removed: null,                   // Function called each time a form is deleted
-        getDeleteLinkContainer: null     // Function to get the container where the delete link should be added. Parameter is the row where the link should be added
+        appendDeleteLink: null           // Function to add the delete link. Arg is the row. The link MUST have the options.addCssClass in its classes.
     };
 })(jQuery);
