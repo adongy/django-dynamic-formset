@@ -50,9 +50,9 @@
                 ;
             },
 
-            appendDeleteLink = function (row){
+            appendDeleteLink = function (row, cls){
                 if (options.appendDeleteLink == null){
-                    var deleteElement = $(document.createElement('a')).addClass(options.deleteCssClass).attr('href', 'javascript:void(0)').text(options.deleteText);
+                    var deleteElement = $(document.createElement('a')).addClass(cls).attr('href', 'javascript:void(0)').text(options.deleteText);
                     if (row.is('TR')) {
                         // If the forms are laid out in table rows, insert
                         // the remove button into the last table cell:
@@ -67,14 +67,14 @@
                         row.append(deleteElement);
                     }
                 } else{
-                    return options.appendDeleteLink(row);
+                    return options.appendDeleteLink(row, cls);
                 }
 
             },
 
             insertDeleteLink = function(row) {
                 var delCssSelector = options.deleteCssClass.trim().replace(/\s+/g, '.');
-                appendDeleteLink(row);
+                appendDeleteLink(row, options.addCssClass);
                 // Listen on the parent instead of listening to each link
                 $$.parent().on('click', '.' + delCssSelector, function(e) {
                     e.preventDefault();
@@ -250,6 +250,6 @@
         cloneWithDataAndEvents: false,   // A Boolean indicating whether event handlers should be copied along with the elements. As of jQuery 1.4, element data will be copied as well.
         added: null,                     // Function called each time a new form is added
         removed: null,                   // Function called each time a form is deleted
-        appendDeleteLink: null           // Function to add the delete link. Arg is the row. The link MUST have the options.addCssClass in its classes.
+        appendDeleteLink: null           // Function to add the delete link. Arg is the row and the class that MUST be in its classes.
     };
 })(jQuery);
