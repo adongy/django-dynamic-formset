@@ -201,7 +201,7 @@
                 // Find the wrapper's container by wrapping an empty element
                 // outside the DOM and finding how many parents it has
                 addButtonRow = addButton.parents().eq(
-                    $('<div/>').wrap(options.addWrap).parents().length - 1
+                    $(document.createElement('div')).wrap(options.addWrap).parents().length - 1
                 );
             }
             if (!showAddButton()) addButtonRow.hide();
