@@ -75,7 +75,9 @@
             insertDeleteLink = function(row) {
                 var delCssSelector = options.deleteCssClass.trim().replace(/\s+/g, '.');
                 appendDeleteLink(row);
-                var delButton = row.find('.' + delCssSelector).click(function() {
+                // Listen on the parent instead of listening to each link
+                $$.parent().on('click', '.' + delCssSelector, function(e) {
+                    e.preventDefault();
                     var row = $(this).parents('.' + options.formCssClass),
                         del = row.find('input:hidden').filter(function() {return this.id.match(deleteRegex)}),
                         forms;
@@ -108,10 +110,10 @@
                     if (addButtonRow.is(':hidden') && showAddButton()) addButtonRow.show();
                     // If a post-delete callback was provided, call it with the deleted form:
                     if (options.removed) options.removed(row);
-                    return false;
                 });
+                var delButtons = row.find('.' + delCssSelector);
                 if (options.deleteWrap) {
-                    delButton.wrap(options.deleteWrap);
+                    delButtons.wrap(options.deleteWrap);
                 }
             };
 
