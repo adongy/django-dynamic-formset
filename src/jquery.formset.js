@@ -209,7 +209,7 @@
             if (!showAddButton()) addButtonRow.hide();
             addButton.click(function() {
                 var formCount = parseInt(totalForms.val()),
-                    row = options.formTemplate.clone(options.cloneWithDataAndEvents).removeClass('formset-custom-template'),
+                    row = options.formTemplate.clone(options.cloneWithDataAndEvents).removeClass('formset-custom-template');
                 applyExtraClasses(row, formCount);
                 if (options.formInsert) {
                     options.formInsert($$, addButtonRow, row);
