@@ -75,7 +75,7 @@
             insertDeleteLink = function(row) {
                 var delCssSelector = options.deleteCssClass.trim().replace(/\s+/g, '.');
                 appendDeleteLink(row);
-                var delButton = row.find('a.' + delCssSelector).click(function() {
+                var delButton = row.find('.' + delCssSelector).click(function() {
                     var row = $(this).parents('.' + options.formCssClass),
                         del = row.find('input:hidden').filter(function() {return this.id.match(deleteRegex)}),
                         forms;
