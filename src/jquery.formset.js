@@ -60,8 +60,7 @@
             },
 
             insertDeleteLink = function(row) {
-                var delCssSelector = options.deleteCssClass.trim().replace(/\s+/g, '.'),
-                    addCssSelector = options.addCssClass.trim().replace(/\s+/g, '.');
+                var delCssSelector = options.deleteCssClass.trim().replace(/\s+/g, '.');
                 if (row.is('TR')) {
                     // If the forms are laid out in table rows, insert
                     // the remove button -by default- into the last table cell:
