@@ -61,18 +61,19 @@
 
             insertDeleteLink = function(row) {
                 var delCssSelector = options.deleteCssClass.trim().replace(/\s+/g, '.');
+                var deleteElement = $(document.createElement('a')).addClass(options.deleteCssClass).attr('href', 'javascript:void(0)').text(options.deleteText);
                 if (row.is('TR')) {
                     // If the forms are laid out in table rows, insert
                     // the remove button -by default- into the last table cell:
-                    getDeleteLinkContainer(row).append('<a class="' + options.deleteCssClass +'" href="javascript:void(0)">' + options.deleteText + '</a>');
+                    getDeleteLinkContainer(row).append(deleteElement);
                 } else if (row.is('UL') || row.is('OL')) {
                     // If they're laid out as an ordered/unordered list,
                     // insert an <li> after the last list item:
-                    row.append('<li><a class="' + options.deleteCssClass + '" href="javascript:void(0)">' + options.deleteText +'</a></li>');
+                    row.append($(document.createElement('li')).append(deleteElement));
                 } else {
                     // Otherwise, just insert the remove button as the
                     // last child element of the form's container:
-                    row.append('<a class="' + options.deleteCssClass + '" href="javascript:void(0)">' + options.deleteText +'</a>');
+                    row.append($(document.createElement('li')).append(deleteElement));
                 }
                 var delButton = row.find('a.' + delCssSelector).click(function() {
                     var row = $(this).parents('.' + options.formCssClass),
@@ -246,8 +247,7 @@
         keepFieldValues: '',             // jQuery selector for fields whose values should be kept when the form is cloned
         cloneWithDataAndEvents: false,   // A Boolean indicating whether event handlers should be copied along with the elements. As of jQuery 1.4, element data will be copied as well.
         added: null,                     // Function called each time a new form is added
-        removed: null,                    // Function called each time a form is deleted
-        getDeleteLinkContainer:null      // function to get the container where the delete link should be added
-
+        removed: null,                   // Function called each time a form is deleted
+        getDeleteLinkContainer: null     // Function to get the container where the delete link should be added. Parameter is the row where the link should be added
     };
 })(jQuery);
