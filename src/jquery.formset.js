@@ -179,17 +179,17 @@
                 // If forms are laid out as table rows, insert the
                 // "add" button in a new table row:
                 var numCols = $$.eq(0).children().length;   // This is a bit of an assumption :|
-                addButtonRow = $('<tr><td colspan="' + numCols + '"><a class="' + options.addCssClass + '" href="javascript:void(0)">' + options.addText + '</a></tr>')
+                addButtonRow = $('<tr><td colspan="' + numCols + '"><button class="' + options.addCssClass + '">' + options.addText + '</button></tr>')
                     .addClass(options.formCssClass + '-add');
                 if (options.addInsert) {
                     options.addInsert($$, addButtonRow);
                 } else {
                     $$.parent().append(addButtonRow);
                 }
-                addButton = addButtonRow.find('a');
+                addButton = addButtonRow.find('button');
             } else {
                 // Otherwise, insert it immediately after the last form:
-                addButton = $('<a class="' + options.addCssClass + '" href="javascript:void(0)">' + options.addText + '</a>');
+                addButton = $('<button class="' + options.addCssClass + '">' + options.addText + '</button>');
                 addButtonRow = addButton;
                 if (options.addInsert) {
                     options.addInsert($$, addButton);
